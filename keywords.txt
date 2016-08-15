@@ -1,4 +1,0 @@
-Dht22 	KEYWORD1
-begin 	KEYWORD2
-get		KEYWORD2
-set		KEYWORD2

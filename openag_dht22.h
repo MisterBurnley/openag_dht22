@@ -1,10 +1,11 @@
-/** 
+/**
  *  \file dht22.h
  *  \brief Sensor module for air temperature and humidity.
  */
 
 #ifndef OPENAG_DHT22_H
 #define OPENAG_DHT22_H
+
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -24,34 +25,39 @@
 // how many timing transitions we need to keep track of. 2 * number bits + extra
 #define MAXTIMINGS 85
 
-/** 
+#include <openag_module.h>
+#include <std_msgs/Float32.h>
+
+/**
  *  \brief Sensor module for air temperature and humidity.
  */
-class Dht22 {
+class Dht22 : public Module {
   public:
     // Public Functions
-    Dht22(String temperature_id, String humidity_id, int analog_pin);
-    void begin(void);
-    String get(String id);
-    String set(String id, String val);
+    Dht22(int pin);
+    void begin();
+    void update();
+    bool get_air_temperature(std_msgs::Float32 &msg);
+    bool get_air_humidity(std_msgs::Float32 &msg);
 
-    // Public Variables
-    float humidity;
-    float temperature;
-    
   private:
     // Private Functions
-    void getSensorData(void);
-    boolean read(void);
-    
+    void getData();
+    bool readSensor();
+
     // Private Variables
-    String _temperature_id;
-    String _humidity_id;
-    int _analog_pin;
+    int _pin;
+    float _air_temperature;
+    bool _send_air_temperature;
+    float _air_humidity;
+    bool _send_air_humidity;
+    uint32_t _time_of_last_reading;
+    const uint32_t _min_update_interval = 2000;
+
     uint8_t _data[6];
     uint8_t _count;
     uint32_t _last_read_time;
-    boolean _first_reading;
+    bool _first_reading;
 };
 
 #endif
