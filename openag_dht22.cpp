@@ -64,7 +64,8 @@ void Dht22::getData(void) {
   }
   else {
     status_level = ERROR;
-    status_msg = "Failed to read from sensor";
+    // Failed to read from sensor
+    status_msg = "32";
   }
 }
 
