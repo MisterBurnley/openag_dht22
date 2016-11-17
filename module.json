@@ -4,7 +4,8 @@
     "arguments": [
         {
             "name": "pin",
-            "type": "int"
+            "type": "int",
+            "default": 2
         }
     ],
     "outputs": {
