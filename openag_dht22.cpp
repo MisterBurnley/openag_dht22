@@ -127,6 +127,7 @@ bool Dht22::readSensor() {
   if ((j >= 40) &&
       (_data[4] == ((_data[0] + _data[1] + _data[2] + _data[3]) & 0xFF)) ) {
     return true;
+    delay(1000); //needed for arduino timing
   }
   return false;
 }
